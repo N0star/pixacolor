@@ -1,6 +1,5 @@
-# FDC # PXC # 1.0.0 # 2020
-
-import matplotlib.image as mpimg 
+I = '''FDC # PXC # 1.0.0 # 2020'''
+import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -36,10 +35,11 @@ def kc_init(xx, k):         #init k-index centroids
     return ctrd
 
 def find_cc(xx, cc):        #find closest values
-    indx = []
+    indx = []#; cmpl=int(len(xx)/25)
     for i in range(len(xx)):
         mval = 9999;
         indx.append(0)
+        #if(0==((i)%cmpl)): print(".",end="");
         for j in range(len(cc)):
             val = xx[i]-cc[j];
             val = np.linalg.norm(val)**2;
@@ -83,23 +83,23 @@ def setting():
         else: pass
     else: f=1;
     return f,tab,pic,n,k;
-                
+
 #tab, pic = upload("Homare.jpeg")
 #k=8; tab = tab[:1000] # testing
 print("Welcome to Pixacolor!")
 while True:                         # main menu # MAIN LOOP #
-    ch=input("u - upload, s - save,\ni - info, q - quit.\n\n")
+    ch=input("\nu - upload, s - save,\ni - info, q - quit.\n\n")
     if(ch=='q'): break;
     elif(ch=='u'):
         f,tab,pic,itn,k = setting()
         if(not f):
             cc = kc_init(tab,k)
             for i in range(itn):
-                print("Finding:",i+1)
+                print("Searching...",i+1)
                 idx = find_cc(tab,cc)
-                print("Updating:",i+1)
+                print("Updating...",i+1)
                 cc = ccc(tab,idx,k)
-            print("Final finding...")
+            print("Final search...")
             idx = find_cc(tab,cc)
             print("Reducing...")
             xx = minipix(tab,cc,idx)
@@ -119,4 +119,4 @@ while True:                         # main menu # MAIN LOOP #
                 plt.savefig(name, bbox_inches='tight')
         else: print("No image to save")
     elif(ch=='i'):
-        print("to do");
+        print(I);
